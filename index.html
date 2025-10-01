@@ -85,12 +85,63 @@
 
     /* Skills */
     .skills{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px}
-    .skill{padding:16px; border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.03)}
+    .skill{
+      padding:16px; border-radius:16px; border:1px solid var(--line); 
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      transition:all .3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .skill:hover{
+      transform:translateY(-4px);
+      box-shadow:0 20px 40px rgba(0,0,0,.4);
+      border-color:rgba(106,108,255,.3);
+    }
+    .skill::before{
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background:linear-gradient(90deg, var(--accent-1), var(--accent-3), var(--accent-2));
+      opacity:0;
+      transition:opacity .3s ease;
+    }
+    .skill:hover::before{opacity:1}
     .skill b{display:block; margin-bottom:6px}
 
     /* Projects */
-    .projects{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px}
-    .project{display:flex; flex-direction:column; gap:10px}
+    .projects-header{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .projects-nav{display:flex; gap:8px}
+    .scroll-btn{
+      width:40px; height:40px; border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      color:var(--text); cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .2s ease;
+      font-size:18px;
+    }
+    .scroll-btn:hover{
+      background:rgba(106,108,255,.1);
+      border-color:rgba(106,108,255,.3);
+      transform:translateY(-2px);
+    }
+    .scroll-btn:active{transform:translateY(0)}
+    .projects{
+      display:flex; gap:16px; overflow-x:auto; overflow-y:hidden;
+      scroll-snap-type:x mandatory; padding-bottom:16px;
+      scrollbar-width:thin; scrollbar-color:var(--accent-1) var(--soft);
+      scroll-behavior:smooth;
+    }
+    .projects::-webkit-scrollbar{height:8px}
+    .projects::-webkit-scrollbar-track{background:var(--soft); border-radius:4px}
+    .projects::-webkit-scrollbar-thumb{background:linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-radius:4px}
+    .projects::-webkit-scrollbar-thumb:hover{background:linear-gradient(90deg, var(--accent-2), var(--accent-3))}
+    .project{display:flex; flex-direction:column; gap:10px; min-width:380px; scroll-snap-align:start}
     .project .thumb{height:160px; border-radius:14px; background:linear-gradient(135deg, rgba(106,108,255,.16), rgba(0,229,255,.12)); border:1px solid var(--line)}
 
     /* Footer */
@@ -99,13 +150,15 @@
     /* Responsive */
     @media (max-width: 1000px){
       .grid-hero{grid-template-columns:1fr}
-      .projects{grid-template-columns:repeat(2, 1fr)}
       .skills{grid-template-columns:repeat(2, 1fr)}
       .exp{grid-template-columns:1fr}
+      .project{min-width:340px}
     }
     @media (max-width: 640px){
-      .projects{grid-template-columns:1fr}
+      .project{min-width:300px}
       .title{font-size:34px}
+      .projects-header{flex-direction:column; align-items:flex-start; gap:12px}
+      .projects-nav{display:none}
       .skill{padding:14px}
       .contact-card{padding:18px}
       .contact-item{padding:10px 14px; gap:10px}
@@ -117,6 +170,14 @@
       .project .thumb{height:160px}
       .project-actions{flex-direction:column; gap:6px}
       .details-btn{padding:10px 14px; font-size:14px}
+      .modal{padding:10px}
+      .modal-content{padding:24px; max-height:95vh}
+      .modal-title{font-size:24px}
+      .modal-section h3{font-size:16px}
+      .tech-stack{gap:6px}
+      .tech-tag{padding:4px 8px; font-size:12px}
+      .modal-links{flex-direction:column; gap:8px}
+      .modal-link{padding:12px 16px; justify-content:center}
     }
 
     /* Tiny details */
@@ -339,6 +400,165 @@
     .details-btn:hover::after{
       transform:translateX(2px);
     }
+    
+    /* Modal Styles */
+    .modal{
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:rgba(0,0,0,.8); backdrop-filter:blur(8px);
+      z-index:1000; display:none; align-items:center; justify-content:center;
+      padding:20px; opacity:0; transition:opacity .3s ease;
+    }
+    .modal.active{
+      display:flex; opacity:1;
+    }
+    .modal-content{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(106,108,255,.3);
+      border-radius:20px; padding:32px; max-width:800px; width:100%;
+      max-height:90vh; overflow-y:auto; position:relative;
+      box-shadow:0 25px 50px rgba(0,0,0,.5);
+      transform:scale(.9); transition:transform .3s ease;
+    }
+    .modal.active .modal-content{
+      transform:scale(1);
+    }
+    .modal-close{
+      position:absolute; top:16px; right:16px;
+      width:32px; height:32px; border-radius:50%;
+      background:rgba(255,255,255,.1); border:1px solid var(--line);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:all .2s ease;
+      color:var(--text);
+    }
+    .modal-close:hover{
+      background:rgba(255,255,255,.2);
+      transform:rotate(90deg);
+    }
+    .modal-header{
+      margin-bottom:24px; padding-right:40px;
+    }
+    .modal-title{
+      font-size:28px; font-weight:700; margin:0 0 8px;
+      background:linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .modal-subtitle{
+      color:var(--muted); font-size:16px; margin:0;
+    }
+    .modal-body{
+      display:grid; gap:24px;
+    }
+    .modal-section h3{
+      font-size:18px; margin:0 0 12px; color:var(--text);
+      display:flex; align-items:center; gap:8px;
+    }
+    .modal-section h3::before{
+      content:'';
+      width:4px; height:20px;
+      background:linear-gradient(180deg, var(--accent-1), var(--accent-3));
+      border-radius:2px;
+    }
+    .modal-section p{
+      color:var(--muted); line-height:1.6; margin:0 0 16px;
+    }
+    .tech-stack{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;
+    }
+    .tech-tag{
+      padding:6px 12px; border-radius:20px;
+      background:rgba(106,108,255,.1);
+      border:1px solid rgba(106,108,255,.2);
+      color:var(--text); font-size:13px; font-weight:500;
+    }
+    .modal-links{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;
+    }
+    .modal-link{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 16px; border-radius:12px;
+      background:linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color:white; text-decoration:none; font-weight:600;
+      transition:all .2s ease;
+    }
+    .modal-link:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 20px rgba(106,108,255,.3);
+    }
+    .modal-link.secondary{
+      background:rgba(255,255,255,.1);
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .modal-link.secondary:hover{
+      background:rgba(106,108,255,.1);
+      color:var(--accent-1);
+    }
+    .achievements{
+      background:rgba(106,108,255,.05);
+      border:1px solid rgba(106,108,255,.1);
+      border-radius:12px; padding:16px;
+    }
+    .achievements ul{
+      margin:0; padding-left:20px; color:var(--muted);
+    }
+    .achievements li{
+      margin-bottom:8px; line-height:1.5;
+    }
+    
+    /* Enhanced Experience Styles */
+    .exp .item{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:var(--radius);
+      padding:20px; box-shadow:var(--shadow);
+      transition:all .3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .exp .item:hover{
+      transform:translateY(-4px);
+      box-shadow:0 20px 40px rgba(0,0,0,.4);
+      border-color:rgba(106,108,255,.3);
+    }
+    .exp .item::before{
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background:linear-gradient(90deg, var(--accent-1), var(--accent-3), var(--accent-2));
+      opacity:0;
+      transition:opacity .3s ease;
+    }
+    .exp .item:hover::before{opacity:1}
+    
+    .exp .item h3{
+      font-size:18px; font-weight:600; margin:0 0 8px;
+      color:var(--text);
+    }
+    .exp .item .muted{
+      color:var(--muted); font-size:14px; margin-bottom:16px;
+    }
+    .exp .item p{
+      color:var(--muted); line-height:1.6; margin:0 0 16px;
+    }
+    
+    .exp-links{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;
+    }
+    .exp-link{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 12px; border-radius:8px;
+      background:rgba(106,108,255,.1);
+      border:1px solid rgba(106,108,255,.2);
+      color:var(--text); text-decoration:none;
+      font-size:13px; font-weight:500;
+      transition:all .2s ease;
+    }
+    .exp-link:hover{
+      background:rgba(106,108,255,.2);
+      transform:translateY(-1px);
+      color:var(--accent-1);
+    }
+    .exp-link.web::before{content:'🌐';}
   </style>
 </head>
 <body>
@@ -366,7 +586,7 @@
       <div class="grid-hero">
         <div>
           <h1 class="title">Привет! Я мобильный разработчик на Flutter.<br/>Делаю быстрые, стабильные и красивые приложения.</h1>
-          <p class="subtitle">Опыт коммерческой разработки с 2021 года. Чищу архитектуру, навожу порядок в CI/CD и довожу релизы до стора без нервных тиков.</p>
+          <p class="subtitle">Опыт коммерческой разработки с 2021 года. Чищу архитектуру, и довожу релизы до стора без нервных тиков.</p>
           <div class="cta">
             <a class="btn primary" href="#contact">Связаться</a>
             <a class="btn ghost" href="#projects">Смотреть проекты</a>
@@ -405,39 +625,30 @@
     <section id="exp">
       <h2 class="section-title">Опыт и роли</h2>
       <div class="exp">
-        <article class="card item">
-          <header>
-            <h3 style="margin:0 0 6px">Flutter Middle разработчик — Yotalab</h3>
-            <div class="muted">Январь 2024 — Март 2025</div>
-          </header>
+        <article class="item">
+          <h3>Flutter Middle разработчик — Yotalab</h3>
+          <div class="muted">Январь 2024 — Март 2025</div>
           <p>Проект <b>SindBadCity</b> (B2B/B2C маркетплейс): ключевые фичи, REST API, deeplink’и, push‑уведомления, чаты, релизы iOS/Android. Навёл порядок в архитектуре (Clean Architecture + BLoC), добавил l10n и токен‑темизацию.</p>
           <div class="tags">
             <span class="chip">Deeplink/App Links</span>
             <span class="chip">Push</span>
-            <span class="chip">CI/CD</span>
           </div>
-          <div class="chips">
-            <a class="link" href="https://apps.apple.com/ru/app/sindbadcity/id6444826905" target="_blank" rel="noopener"> App Store</a>
-            <a class="link" href="https://play.google.com/store/apps/details?id=com.sindbadcity" target="_blank" rel="noopener">▶︎ Google Play</a>
+          <div class="exp-links">
+            <a class="exp-link web" href="https://yotolab.ru/" target="_blank" rel="noopener">Вебсайт Yotalab</a>
           </div>
         </article>
 
-        <article class="card item">
-          <header>
-            <h3 style="margin:0 0 6px">Flutter Middle разработчик — ЛюблюЕду (CRM + мобильные приложения)</h3>
-            <div class="muted">Март 2023 — Декабрь 2023</div>
-          </header>
+        <article class="item">
+          <h3>Flutter Middle разработчик — ЛюблюЕду (CRM + мобильные приложения)</h3>
+          <div class="muted">Март 2023 — Декабрь 2023</div>
           <p>Фичи и поддержка клиентских приложений: программа лояльности, купоны/промокоды, таргетированные push, онлайн‑оплата, конструктор блюд, бронирование столов, live‑трекер курьера, синхронизация с учётными системами (iiko). Опубликовал 20–30 проектов.</p>
           <div class="tags">
             <span class="chip">iiko интеграции</span>
             <span class="chip">Онлайн‑оплата</span>
             <span class="chip">Live‑трекинг</span>
           </div>
-          <div class="chips">
-            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.lovefood" target="_blank" rel="noopener">ЛюблюЕду — Google Play</a>
-            <a class="link" href="https://apps.apple.com/ru/app/%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E%D0%B5%D0%B4%D1%83/id1562836735" target="_blank" rel="noopener">ЛюблюЕду — App Store</a>
-            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.freshbar" target="_blank" rel="noopener">FRESHBAR</a>
-            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.ochag" target="_blank" rel="noopener">OCHAG</a>
+          <div class="exp-links">
+            <a class="exp-link web" href="https://люблюеду.рф/" target="_blank" rel="noopener">Вебсайт ЛюблюЕду</a>
           </div>
         </article>
       </div>
@@ -458,11 +669,17 @@
     </section>
 
     <section id="projects">
-      <h2 class="section-title">Реализованные проекты</h2>
-      <div class="projects">
+      <div class="projects-header">
+        <h2 class="section-title" style="margin:0">Реализованные проекты</h2>
+        <div class="projects-nav">
+          <button class="scroll-btn" id="scroll-left" aria-label="Прокрутить влево">←</button>
+          <button class="scroll-btn" id="scroll-right" aria-label="Прокрутить вправо">→</button>
+        </div>
+      </div>
+      <div class="projects" id="projects-container">
         <article class="project">
           <div class="thumb">
-            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop" alt="SindBadCity - Маркетплейс приложение"/>
+            <img src="assets/sindbadcity.png" alt="SindBadCity - Маркетплейс приложение"/>
           </div>
           <h3>SindBadCity (маркетплейс)</h3>
           <p>Полнофункциональный B2B/B2C маркетплейс с системой чатов, push-уведомлениями, deeplink-навигацией и автоматическими релизами в App Store и Google Play.</p>
@@ -474,7 +691,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?q=80&w=1200&auto=format&fit=crop" alt="ЛюблюЕду - Ресторанная экосистема"/>
+            <img src="assets/lovefood.png" alt="ЛюблюЕду - Ресторанная экосистема"/>
           </div>
           <h3>ЛюблюЕду (экосистема)</h3>
           <p>Комплексная экосистема для ресторанов: CRM система, мобильные приложения клиентов, программа лояльности, онлайн-оплата и интеграция с iiko.</p>
@@ -486,7 +703,18 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=1200&auto=format&fit=crop" alt="K-Profi 2.0 - Сканер чеков"/>
+            <img src="assets/fresh.png" alt="Fresh Гастробар - Приложение для доставки"/>
+          </div>
+          <h3>Fresh Гастробар</h3>
+          <p>Мобильное приложение для Fresh Гастробара с программой лояльности, онлайн-заказами, отслеживанием доставки и системой бонусов.</p>
+          <div class="chips">
+            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.freshbar" target="_blank">Google Play</a>
+          </div>
+          <a href="#fresh-details" class="details-btn">Подробнее</a>
+        </article>
+        <article class="project">
+          <div class="thumb">
+            <img src="assets/knauf.png" alt="K-Profi 2.0 - Сканер чеков"/>
           </div>
           <h3>K‑Profi 2.0</h3>
           <p>Приложение для сканирования чеков с системой бонусов, каталогом товаров и функционалом корзины для накопления скидок.</p>
@@ -494,6 +722,18 @@
             <a class="link" href="https://apps.apple.com/ru/app/k-profi-2-0/id1637130637" target="_blank"> App Store</a>
           </div>
           <a href="#kprofi-details" class="details-btn">Подробнее</a>
+        </article>
+        <article class="project">
+          <div class="thumb">
+            <img src="assets/sadykova.png" alt="Dr.Sadykova - Мобильное приложение"/>
+          </div>
+          <h3>Dr.Sadykova</h3>
+          <p>Мобильное приложение для бренда космецевтики Dr.Sadykova с каталогом продукции, программой лояльности и онлайн-консультациями. Проекты впоследствии не поддерживаются и недоступны в сторах. Но при необходимости можно скачать АПК и тестить с сайта.</p>
+          <div class="chips">
+            <a class="link" href="https://drsadykova.pro/" target="_blank">🌐 Вебсайт</a>
+            <a class="link" href="https://disk.yandex.tj/d/Sc9WgCksllIoUw" target="_blank">📱 APK для тестирования</a>
+          </div>
+          <a href="#sadykova-details" class="details-btn">Подробнее</a>
         </article>
       </div>
     </section>
@@ -599,6 +839,427 @@
         ? 'radial-gradient(1200px 800px at 80% -10%, rgba(138,43,226,.14), transparent 60%), radial-gradient(900px 700px at -10% 10%, rgba(0,229,255,.10), transparent 55%), linear-gradient(180deg, #07090c 0%, #06080a 100%)'
         : '';
     });
+
+    // Modal functionality
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+          activeModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // Update details button links to open modals
+    document.addEventListener('DOMContentLoaded', () => {
+      const detailsButtons = document.querySelectorAll('.details-btn');
+      detailsButtons.forEach(btn => {
+        const href = btn.getAttribute('href');
+        if (href === '#sindbad-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('sindbad-modal');
+          });
+        } else if (href === '#lovefood-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('lovefood-modal');
+          });
+        } else if (href === '#fresh-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('fresh-modal');
+          });
+        } else if (href === '#kprofi-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('kprofi-modal');
+          });
+        } else if (href === '#sadykova-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('sadykova-modal');
+          });
+        }
+      });
+
+      // Projects scroll navigation
+      const projectsContainer = document.getElementById('projects-container');
+      const scrollLeftBtn = document.getElementById('scroll-left');
+      const scrollRightBtn = document.getElementById('scroll-right');
+
+      if (projectsContainer && scrollLeftBtn && scrollRightBtn) {
+        scrollLeftBtn.addEventListener('click', () => {
+          projectsContainer.scrollBy({
+            left: -400,
+            behavior: 'smooth'
+          });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+          projectsContainer.scrollBy({
+            left: 400,
+            behavior: 'smooth'
+          });
+        });
+      }
+    });
   </script>
+
+  <!-- Modal Windows -->
+  <div id="sindbad-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('sindbad-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">SindBadCity</h1>
+        <p class="modal-subtitle">B2B/B2C Маркетплейс • iOS/Android • 2024-2025</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Полнофункциональный маркетплейс для торговли товарами и услугами. Поддерживает как B2B (бизнес для бизнеса), так и B2C (бизнес для потребителей) модели работы. Приложение включает в себя систему чатов, push-уведомления, deeplink-навигацию и автоматические релизы в App Store и Google Play.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>Система чатов между продавцами и покупателями</li>
+            <li>Push-уведомления для важных событий</li>
+            <li>Deeplink-навигация для прямых ссылок на товары</li>
+            <li>Система оплаты и доставки</li>
+            <li>Модерация контента и безопасность</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">Clean Architecture</span>
+            <span class="tech-tag">BLoC</span>
+            <span class="tech-tag">GetIt</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">Firebase Auth</span>
+            <span class="tech-tag">Firebase FCM</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">GoRouter</span>
+            <span class="tech-tag">l10n</span>
+            <span class="tech-tag">Fastlane</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Настроил Clean Architecture с четким разделением слоев</li>
+            <li>Внедрил систему управления состоянием BLoC</li>
+            <li>Настроил автоматические релизы в магазины приложений</li>
+            <li>Добавил поддержку локализации и тем</li>
+            <li>Оптимизировал производительность приложения</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://apps.apple.com/ru/app/sindbadcity/id6444826905" target="_blank" class="modal-link">
+            📱 App Store
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.sindbadcity" target="_blank" class="modal-link">
+            📱 Google Play
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lovefood-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('lovefood-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">ЛюблюЕду</h1>
+        <p class="modal-subtitle">Ресторанная экосистема • iOS/Android • 2023-2024</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Комплексная экосистема для ресторанного бизнеса, включающая CRM систему и мобильные приложения для клиентов. Система позволяет ресторанам управлять заказами, программой лояльности, принимать онлайн-платежи и интегрироваться с учетными системами типа iiko.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>CRM система для управления заказами и клиентами</li>
+            <li>Программа лояльности с накопительными бонусами</li>
+            <li>Система купонов и промокодов</li>
+            <li>Таргетированные push-уведомления</li>
+            <li>Онлайн-оплата через различные платежные системы</li>
+            <li>Конструктор блюд с возможностью кастомизации</li>
+            <li>Система бронирования столов</li>
+            <li>Live-трекер курьера в реальном времени</li>
+            <li>Интеграция с системой учета iiko</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">Clean Architecture</span>
+            <span class="tech-tag">Cubit</span>
+            <span class="tech-tag">Injectable</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">iiko API</span>
+            <span class="tech-tag">Payment Gateway</span>
+            <span class="tech-tag">Maps API</span>
+            <span class="tech-tag">Push Notifications</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Разработал и опубликовал 20-30 мобильных приложений</li>
+            <li>Интегрировал систему с iiko для синхронизации меню и заказов</li>
+            <li>Реализовал систему live-трекинга курьеров</li>
+            <li>Настроил таргетированные push-уведомления</li>
+            <li>Оптимизировал работу с большими объемами данных</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://play.google.com/store/apps/details?id=ru.dolinger.lovefood" target="_blank" class="modal-link">
+            📱 ЛюблюЕду - Google Play
+          </a>
+          <a href="https://apps.apple.com/ru/app/%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E%D0%B5%D0%B4%D1%83/id1562836735" target="_blank" class="modal-link">
+            📱 ЛюблюЕду - App Store
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=ru.dolinger.freshbar" target="_blank" class="modal-link secondary">
+            🌐 FRESHBAR
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=ru.dolinger.ochag" target="_blank" class="modal-link secondary">
+            🌐 OCHAG
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="fresh-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('fresh-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">Fresh Гастробар</h1>
+        <p class="modal-subtitle">Приложение для доставки • Android • 2023</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Мобильное приложение для Fresh Гастробара, предоставляющее клиентам удобный способ заказа блюд с доставкой. Приложение включает программу лояльности с накоплением баллов, систему промокодов, отслеживание заказов в реальном времени и интеграцию с системой учета.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>Программа лояльности с накопительными баллами</li>
+            <li>Система промокодов и скидок</li>
+            <li>Онлайн-заказ с удобным меню</li>
+            <li>Отслеживание статуса заказа</li>
+            <li>Push-уведомления об акциях</li>
+            <li>История заказов</li>
+            <li>Интеграция с системой доставки</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">Clean Architecture</span>
+            <span class="tech-tag">Cubit</span>
+            <span class="tech-tag">Injectable</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Push Notifications</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Разработал удобный интерфейс для заказа блюд</li>
+            <li>Реализовал систему лояльности и бонусов</li>
+            <li>Настроил push-уведомления для акций</li>
+            <li>Интегрировал систему отслеживания заказов</li>
+            <li>Обеспечил стабильную работу приложения</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://play.google.com/store/apps/details?id=ru.dolinger.freshbar" target="_blank" class="modal-link">
+            📱 Google Play
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="kprofi-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('kprofi-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">K-Profi 2.0</h1>
+        <p class="modal-subtitle">Сканер чеков • iOS • 2022-2023</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Мобильное приложение для сканирования чеков с системой накопления бонусов. Пользователи могут сканировать чеки, получать бонусы за покупки, просматривать каталог товаров и накапливать скидки в корзине.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>Сканирование и распознавание QR-кодов чеков</li>
+            <li>Система накопления бонусов и скидок</li>
+            <li>Каталог товаров с поиском и фильтрацией</li>
+            <li>Корзина покупок с накоплением скидок</li>
+            <li>История покупок и чеков</li>
+            <li>Уведомления о новых акциях и предложениях</li>
+            <li>Профиль пользователя с статистикой</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">BLoC</span>
+            <span class="tech-tag">GetIt</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">QR Code Scanner</span>
+            <span class="tech-tag">Camera API</span>
+            <span class="tech-tag">Local Storage</span>
+            <span class="tech-tag">Push Notifications</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Реализовал точное сканирование QR-кодов чеков</li>
+            <li>Создал удобный интерфейс для управления бонусами</li>
+            <li>Оптимизировал работу с камерой устройства</li>
+            <li>Настроил систему уведомлений о акциях</li>
+            <li>Обеспечил стабильную работу приложения</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://apps.apple.com/ru/app/k-profi-2-0/id1637130637" target="_blank" class="modal-link">
+            📱 App Store
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sadykova-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('sadykova-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">Dr.Sadykova</h1>
+        <p class="modal-subtitle">Мобильное приложение для космецевтики • Android • 2023</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Мобильное приложение для бренда космецевтики Dr.Sadykova - экспертного ухода за кожей от врача-косметолога. Приложение предоставляет клиентам доступ к каталогу продукции, программе лояльности, онлайн-консультациям и персональным рекомендациям по уходу за кожей.</p>
+          <p><strong>Примечание:</strong> Проекты впоследствии не поддерживаются и недоступны в сторах. Но при необходимости можно скачать APK и тестить с сайта.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>Каталог космецевтической продукции с подробными описаниями</li>
+            <li>Программа лояльности с накопительными баллами</li>
+            <li>Онлайн-консультации с врачом-косметологом</li>
+            <li>Персональные рекомендации по уходу за кожей</li>
+            <li>Система заказов с доставкой</li>
+            <li>Интеграция с WhatsApp для консультаций</li>
+            <li>Блог с полезными статьями об уходе</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">Clean Architecture</span>
+            <span class="tech-tag">BLoC</span>
+            <span class="tech-tag">GetIt</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">WhatsApp API</span>
+            <span class="tech-tag">Payment Gateway</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Разработал интуитивный интерфейс для каталога косметики</li>
+            <li>Реализовал систему персональных рекомендаций</li>
+            <li>Интегрировал WhatsApp для онлайн-консультаций</li>
+            <li>Настроил программу лояльности с бонусной системой</li>
+            <li>Обеспечил безопасную обработку платежей</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://drsadykova.pro/" target="_blank" class="modal-link">
+            🌐 Вебсайт Dr.Sadykova
+          </a>
+          <a href="https://disk.yandex.tj/d/Sc9WgCksllIoUw" target="_blank" class="modal-link secondary">
+            📱 APK для тестирования
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
