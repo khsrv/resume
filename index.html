@@ -82,6 +82,41 @@
     nav a{padding:8px 12px; border-radius:10px; color:var(--muted)}
     nav a:hover{color:var(--text); background:rgba(255,255,255,.04)}
     .theme-toggle{border:1px solid var(--line); background:var(--glass); border-radius:12px; padding:8px 12px; cursor:pointer}
+    
+    /* Mobile Menu */
+    .mobile-menu-btn{
+      display:none; width:40px; height:40px; border:1px solid var(--line);
+      background:var(--glass); border-radius:12px; cursor:pointer;
+      flex-direction:column; align-items:center; justify-content:center; gap:5px;
+      transition:all .3s ease;
+    }
+    .mobile-menu-btn span{
+      width:20px; height:2px; background:var(--text);
+      transition:all .3s ease; border-radius:2px;
+    }
+    .mobile-menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(6px, 6px)}
+    .mobile-menu-btn.active span:nth-child(2){opacity:0}
+    .mobile-menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(6px, -6px)}
+    
+    @media (max-width: 768px){
+      .mobile-menu-btn{display:flex}
+      nav{
+        position:fixed; top:64px; left:0; right:0;
+        background:var(--panel); border-top:1px solid var(--line);
+        transform:translateY(-100%); opacity:0;
+        transition:all .3s ease; pointer-events:none;
+        z-index:20;
+      }
+      nav.active{transform:translateY(0); opacity:1; pointer-events:auto}
+      nav ul{flex-direction:column; padding:20px; gap:0; width:100%}
+      nav li{width:100%}
+      nav a{
+        display:block; width:100%; padding:14px 16px;
+        border-bottom:1px solid var(--line);
+      }
+      nav li:last-child a{border-bottom:none}
+      .theme-toggle{display:none}
+    }
 
     /* Hero */
     .hero{position:relative; padding:72px 0 32px}
@@ -188,12 +223,24 @@
       .exp{grid-template-columns:1fr}
       .project{min-width:340px}
     }
+    @media (max-width: 768px){
+      .brand span:not(.dot){font-size:14px}
+      .badge{padding:6px 10px}
+      .hero{padding:48px 0 24px}
+      .title{font-size:28px; line-height:1.2}
+      .subtitle{font-size:15px}
+      .section-title{font-size:20px}
+      .chip{padding:6px 8px; font-size:11px}
+      .btn{padding:10px 14px; font-size:14px}
+    }
     @media (max-width: 640px){
       .project{min-width:300px}
-      .title{font-size:34px}
+      .title{font-size:24px}
+      .subtitle{font-size:14px}
       .projects-header{flex-direction:column; align-items:flex-start; gap:12px}
       .projects-nav{display:none}
       .skill{padding:14px}
+      .skill b{font-size:15px}
       .contact-card{padding:18px}
       .contact-item{padding:10px 14px; gap:10px}
       .phone-numbers{flex-direction:column; gap:6px}
@@ -208,10 +255,13 @@
       .modal-content{padding:24px; max-height:95vh}
       .modal-title{font-size:24px}
       .modal-section h3{font-size:16px}
+      .modal-section p{font-size:14px}
       .tech-stack{gap:6px}
       .tech-tag{padding:4px 8px; font-size:12px}
       .modal-links{flex-direction:column; gap:8px}
       .modal-link{padding:12px 16px; justify-content:center}
+      .exp .item h3{font-size:16px}
+      .exp .item p, .exp .item .muted{font-size:14px}
     }
 
     /* Tiny details */
@@ -651,7 +701,7 @@
       <div class="brand">
         <span class="badge"><span class="dot"></span><span>Abduqahhor Yakubi</span></span>
       </div>
-      <nav aria-label="Главная навигация">
+      <nav aria-label="Главная навигация" id="mainNav">
         <ul>
           <li><a href="#about">Обо мне</a></li>
           <li><a href="#exp">Опыт</a></li>
@@ -660,7 +710,14 @@
           <li><a href="#contact">Контакты</a></li>
         </ul>
       </nav>
-      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">⚡︎</button>
+      <div style="display:flex; gap:8px; align-items:center">
+        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">⚡︎</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -912,6 +969,33 @@
   <script>
     // Год в футере
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Мобильное меню
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+    
+    if (mobileMenuBtn && mainNav) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        mainNav.classList.toggle('active');
+      });
+      
+      // Закрытие меню при клике на ссылку
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          mainNav.classList.remove('active');
+        });
+      });
+      
+      // Закрытие меню при клике вне его
+      document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          mobileMenuBtn.classList.remove('active');
+          mainNav.classList.remove('active');
+        }
+      });
+    }
 
     // Плавный скролл
     document.querySelectorAll('a[href^="#"]').forEach(a=>{

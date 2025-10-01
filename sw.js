@@ -1,5 +1,5 @@
 // Service Worker для кэширования и быстрой загрузки
-const CACHE_NAME = 'yakubi-portfolio-v1';
+const CACHE_NAME = 'yakubi-portfolio-v2';
 const urlsToCache = [
   '/',
   '/index.html',
