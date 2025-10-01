@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abduqahhor Yakubi — Flutter Developer</title>
+  <meta name="description" content="Hi‑tech резюме‑лендинг Middle Flutter Developer: проекты, опыт, навыки, контакты." />
+  <meta name="theme-color" content="#0b0e12" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0e12;          /* глубокий графит */
+      --panel:#0f141b;       /* тёмная панель */
+      --soft:#111823;
+      --text:#e6eaf2;        /* почти белый */
+      --muted:#9aa7b6;
+      --line:#1c2430;
+      --accent-1:#6a6cff;    /* индиго неон */
+      --accent-2:#8e2de2;    /* фиолет */
+      --accent-3:#00e5ff;    /* циан */
+      --glass:rgba(255,255,255,.04);
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 800px at 85% -10%, rgba(106,108,255,.16), transparent 60%),
+               radial-gradient(900px 700px at -10% 10%, rgba(0,229,255,.12), transparent 55%),
+               linear-gradient(180deg, #0b0e12 0%, #0a0c10 100%);
+      color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial; line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+    header{
+      position:sticky; top:0; z-index:30; backdrop-filter:saturate(160%) blur(10px);
+      background:linear-gradient(180deg, rgba(15,20,27,.88), rgba(15,20,27,.65));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.3px}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line);
+      border-radius:9999px; background:var(--glass)}
+    .badge .dot{width:10px; height:10px; border-radius:50%; background:conic-gradient(from 220deg, var(--accent-3), var(--accent-1), var(--accent-2))}
+    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+    nav a{padding:8px 12px; border-radius:10px; color:var(--muted)}
+    nav a:hover{color:var(--text); background:rgba(255,255,255,.04)}
+    .theme-toggle{border:1px solid var(--line); background:var(--glass); border-radius:12px; padding:8px 12px; cursor:pointer}
+
+    /* Hero */
+    .hero{position:relative; padding:72px 0 32px}
+    .grid-hero{display:grid; grid-template-columns:1.2fr .8fr; gap:32px; align-items:center}
+    .title{font-size:44px; line-height:1.15; margin:0 0 16px; letter-spacing:.2px}
+    .subtitle{color:var(--muted); font-size:16px; margin-bottom:28px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{padding:12px 16px; border-radius:12px; border:1px solid var(--line); background:var(--soft); color:var(--text); font-weight:600}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.25)}
+    .btn.primary{border:0; background:linear-gradient(135deg, var(--accent-1), var(--accent-2) 50%, var(--accent-3)); position:relative}
+    .btn.ghost{background:transparent}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)
+    }
+    .photo{
+      aspect-ratio:1/1; border-radius:20px; overflow:hidden; position:relative; isolation:isolate;
+      background:linear-gradient(180deg, rgba(106,108,255,.18), rgba(0,229,255,.14));
+      display:flex; align-items:center; justify-content:center
+    }
+    .photo img{width:100%; height:100%; object-fit:cover; mix-blend:lighten; filter:saturate(105%)}
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+    .chip{padding:8px 10px; border:1px solid var(--line); border-radius:999px; color:#c7d2e0; background:rgba(255,255,255,.03); font-size:12px}
+
+    /* Sections */
+    section{padding:48px 0}
+    .section-title{font-size:24px; margin:0 0 18px}
+    .muted{color:var(--muted)}
+
+    /* Experience */
+    .exp{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
+    .exp .item{display:grid; gap:10px}
+    .item .tags{display:flex; gap:8px; flex-wrap:wrap}
+
+    /* Skills */
+    .skills{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px}
+    .skill{padding:16px; border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.03)}
+    .skill b{display:block; margin-bottom:6px}
+
+    /* Projects */
+    .projects{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px}
+    .project{display:flex; flex-direction:column; gap:10px}
+    .project .thumb{height:160px; border-radius:14px; background:linear-gradient(135deg, rgba(106,108,255,.16), rgba(0,229,255,.12)); border:1px solid var(--line)}
+
+    /* Footer */
+    footer{padding:42px 0 60px; color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 1000px){
+      .grid-hero{grid-template-columns:1fr}
+      .projects{grid-template-columns:repeat(2, 1fr)}
+      .skills{grid-template-columns:repeat(2, 1fr)}
+      .exp{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .projects{grid-template-columns:1fr}
+      .title{font-size:34px}
+      .skill{padding:14px}
+      .contact-card{padding:18px}
+      .contact-item{padding:10px 14px; gap:10px}
+      .phone-numbers{flex-direction:column; gap:6px}
+      .phone-link{padding:8px 12px; font-size:14px}
+      .download-btn{padding:14px 20px; font-size:15px}
+      .download-section{padding:24px 0}
+      .project{padding:16px}
+      .project .thumb{height:160px}
+      .project-actions{flex-direction:column; gap:6px}
+      .details-btn{padding:10px 14px; font-size:14px}
+    }
+
+    /* Tiny details */
+    .glow{position:absolute; inset:-60px; pointer-events:none; background:radial-gradient(350px 220px at var(--mx,70%) var(--my,30%), rgba(0,229,255,.18), transparent 60%), radial-gradient(260px 200px at calc(var(--mx,30%)) calc(var(--my,60%)), rgba(138,43,226,.18), transparent 60%)}
+    .link{display:inline-flex; align-items:center; gap:8px; transition:all .2s ease}
+    .link:hover{transform:translateY(-1px); color:var(--accent-1)}
+    .link svg{opacity:.9; transition:all .2s ease}
+    .link:hover svg{opacity:1; transform:scale(1.1)}
+    .kbd{padding:2px 6px; border:1px solid var(--line); border-radius:6px; background:rgba(255,255,255,.04); font-size:.8em}
+    
+    /* Enhanced Contact Styles */
+    .contact-card{
+      background:linear-gradient(135deg, rgba(106,108,255,.08), rgba(0,229,255,.06));
+      border:1px solid rgba(106,108,255,.2);
+      border-radius:var(--radius);
+      padding:24px;
+      position:relative;
+      overflow:hidden;
+      transition:all .3s ease;
+    }
+    .contact-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 15px 35px rgba(106,108,255,.15);
+      border-color:rgba(106,108,255,.3);
+    }
+    .contact-card::before{
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:2px;
+      background:linear-gradient(90deg, var(--accent-1), var(--accent-3), var(--accent-2));
+      opacity:0;
+      transition:opacity .3s ease;
+    }
+    .contact-card:hover::before{opacity:1}
+    
+    .contact-item{
+      display:flex; align-items:center; gap:12px;
+      padding:12px 16px;
+      border-radius:12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      transition:all .2s ease;
+      cursor:pointer;
+      margin-bottom:8px;
+    }
+    .contact-item:hover{
+      background:rgba(106,108,255,.1);
+      border-color:rgba(106,108,255,.3);
+      transform:translateX(4px);
+    }
+    .contact-item:last-child{margin-bottom:0}
+    
+    .contact-icon{
+      width:20px; height:20px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:8px;
+      background:linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      flex-shrink:0;
+    }
+    .contact-icon svg{width:12px; height:12px; opacity:1}
+    
+    .phone-numbers{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;
+    }
+    .phone-link{
+      padding:6px 10px;
+      background:rgba(106,108,255,.1);
+      border:1px solid rgba(106,108,255,.2);
+      border-radius:8px;
+      color:var(--text);
+      text-decoration:none;
+      font-size:13px;
+      transition:all .2s ease;
+      display:inline-flex; align-items:center; gap:4px;
+    }
+    .phone-link:hover{
+      background:rgba(106,108,255,.2);
+      transform:translateY(-1px);
+      color:var(--accent-1);
+    }
+    .phone-link::before{content:'📱'; font-size:11px}
+    
+    /* Download Button Styles */
+    .download-section{
+      text-align:center;
+      padding:32px 0;
+    }
+    .download-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      padding:16px 24px;
+      background:linear-gradient(135deg, var(--accent-1), var(--accent-2) 50%, var(--accent-3));
+      border:none;
+      border-radius:16px;
+      color:white;
+      font-weight:600;
+      font-size:16px;
+      text-decoration:none;
+      box-shadow:0 8px 25px rgba(106,108,255,.3);
+      transition:all .3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .download-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 15px 35px rgba(106,108,255,.4);
+    }
+    .download-btn::before{
+      content:'';
+      position:absolute;
+      top:0; left:-100%;
+      width:100%; height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+      transition:left .6s ease;
+    }
+    .download-btn:hover::before{
+      left:100%;
+    }
+    .download-icon{
+      width:20px; height:20px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .download-icon svg{
+      width:18px; height:18px;
+      transition:transform .2s ease;
+    }
+    .download-btn:hover .download-icon svg{
+      transform:translateY(-1px);
+    }
+    
+    /* Enhanced Project Styles */
+    .project{
+      display:flex; flex-direction:column; gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:var(--radius);
+      padding:20px; box-shadow:var(--shadow);
+      transition:all .3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .project:hover{
+      transform:translateY(-4px);
+      box-shadow:0 20px 40px rgba(0,0,0,.4);
+      border-color:rgba(106,108,255,.3);
+    }
+    .project::before{
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background:linear-gradient(90deg, var(--accent-1), var(--accent-3), var(--accent-2));
+      opacity:0;
+      transition:opacity .3s ease;
+    }
+    .project:hover::before{opacity:1}
+    
+    .project .thumb{
+      height:180px; border-radius:14px; 
+      background:linear-gradient(135deg, rgba(106,108,255,.16), rgba(0,229,255,.12)); 
+      border:1px solid var(--line);
+      overflow:hidden;
+      position:relative;
+    }
+    .project .thumb img{
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .3s ease;
+    }
+    .project:hover .thumb img{
+      transform:scale(1.05);
+    }
+    
+    .project h3{
+      margin:0; font-size:18px; font-weight:600;
+      color:var(--text);
+    }
+    .project p{
+      margin:0; color:var(--muted); font-size:14px;
+      line-height:1.4;
+    }
+    
+    .project-actions{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;
+    }
+    .project-link{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 12px; border-radius:8px;
+      background:rgba(106,108,255,.1);
+      border:1px solid rgba(106,108,255,.2);
+      color:var(--text); text-decoration:none;
+      font-size:13px; font-weight:500;
+      transition:all .2s ease;
+    }
+    .project-link:hover{
+      background:rgba(106,108,255,.2);
+      transform:translateY(-1px);
+      color:var(--accent-1);
+    }
+    .project-link.store::before{content:'📱';}
+    .project-link.web::before{content:'🌐';}
+    
+    .details-btn{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 12px; border-radius:8px;
+      background:linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      border:none; color:white; text-decoration:none;
+      font-size:13px; font-weight:500;
+      transition:all .2s ease;
+      margin-top:8px;
+    }
+    .details-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 20px rgba(106,108,255,.3);
+    }
+    .details-btn::after{
+      content:'→';
+      transition:transform .2s ease;
+    }
+    .details-btn:hover::after{
+      transform:translateX(2px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="badge"><span class="dot"></span><span>Abduqahhor Yakubi</span></span>
+      </div>
+      <nav aria-label="Главная навигация">
+        <ul>
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#exp">Опыт</a></li>
+          <li><a href="#skills">Скиллы</a></li>
+          <li><a href="#projects">Проекты</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">⚡︎</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="grid-hero">
+        <div>
+          <h1 class="title">Привет! Я мобильный разработчик на Flutter.<br/>Делаю быстрые, стабильные и красивые приложения.</h1>
+          <p class="subtitle">Опыт коммерческой разработки с 2021 года. Чищу архитектуру, навожу порядок в CI/CD и довожу релизы до стора без нервных тиков.</p>
+          <div class="cta">
+            <a class="btn primary" href="#contact">Связаться</a>
+            <a class="btn ghost" href="#projects">Смотреть проекты</a>
+          </div>
+          <div class="chips" style="margin-top:16px">
+            <span class="chip">Clean Architecture</span>
+            <span class="chip">BLoC/Cubit</span>
+            <span class="chip">GetIt / Injectable</span>
+            <span class="chip">Dio / REST</span>
+            <span class="chip">GoRouter</span>
+            <span class="chip">Firebase (Auth/FCM)</span>
+            <span class="chip">WebSockets</span>
+            <span class="chip">l10n / token‑theme</span>
+          </div>
+        </div>
+        <div class="card photo" aria-label="Фото">
+          <!-- Замените src на свою фотографию -->
+          <img src="assets/image.png" alt="Abduqahhor Yakubi"/>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">Обо мне</h2>
+      <div class="card">
+        <p class="muted">Казань, Россия · 25 лет · 3+ года опыта. Люблю доводить продукты до релиза и настраивать процессы так, чтобы команда работала быстрее. Слежу за качеством кода и UX, прокачиваю дизайн‑системы и автоматизацию.</p>
+        <div class="chips">
+          <span class="chip">Git/GitFlow</span>
+          <span class="chip">Fastlane / GitHub Actions</span>
+          <span class="chip">Postman · Jira/Bitbucket</span>
+          <span class="chip">Figma (UI/UX)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="exp">
+      <h2 class="section-title">Опыт и роли</h2>
+      <div class="exp">
+        <article class="card item">
+          <header>
+            <h3 style="margin:0 0 6px">Flutter Middle разработчик — Yotalab</h3>
+            <div class="muted">Январь 2024 — Март 2025</div>
+          </header>
+          <p>Проект <b>SindBadCity</b> (B2B/B2C маркетплейс): ключевые фичи, REST API, deeplink’и, push‑уведомления, чаты, релизы iOS/Android. Навёл порядок в архитектуре (Clean Architecture + BLoC), добавил l10n и токен‑темизацию.</p>
+          <div class="tags">
+            <span class="chip">Deeplink/App Links</span>
+            <span class="chip">Push</span>
+            <span class="chip">CI/CD</span>
+          </div>
+          <div class="chips">
+            <a class="link" href="https://apps.apple.com/ru/app/sindbadcity/id6444826905" target="_blank" rel="noopener"> App Store</a>
+            <a class="link" href="https://play.google.com/store/apps/details?id=com.sindbadcity" target="_blank" rel="noopener">▶︎ Google Play</a>
+          </div>
+        </article>
+
+        <article class="card item">
+          <header>
+            <h3 style="margin:0 0 6px">Flutter Middle разработчик — ЛюблюЕду (CRM + мобильные приложения)</h3>
+            <div class="muted">Март 2023 — Декабрь 2023</div>
+          </header>
+          <p>Фичи и поддержка клиентских приложений: программа лояльности, купоны/промокоды, таргетированные push, онлайн‑оплата, конструктор блюд, бронирование столов, live‑трекер курьера, синхронизация с учётными системами (iiko). Опубликовал 20–30 проектов.</p>
+          <div class="tags">
+            <span class="chip">iiko интеграции</span>
+            <span class="chip">Онлайн‑оплата</span>
+            <span class="chip">Live‑трекинг</span>
+          </div>
+          <div class="chips">
+            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.lovefood" target="_blank" rel="noopener">ЛюблюЕду — Google Play</a>
+            <a class="link" href="https://apps.apple.com/ru/app/%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E%D0%B5%D0%B4%D1%83/id1562836735" target="_blank" rel="noopener">ЛюблюЕду — App Store</a>
+            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.freshbar" target="_blank" rel="noopener">FRESHBAR</a>
+            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.ochag" target="_blank" rel="noopener">OCHAG</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Скиллы</h2>
+      <div class="skills">
+        <div class="skill"><b>Flutter/Dart</b><span class="muted">3+ года, чистая архитектура, производительность</span></div>
+        <div class="skill"><b>Архитектура</b><span class="muted">Clean Architecture, BLoC/Cubit, DI (GetIt/Injectable)</span></div>
+        <div class="skill"><b>Сеть и данные</b><span class="muted">Dio/REST, WebSockets, Hive, Secure Storage</span></div>
+        <div class="skill"><b>Навигация</b><span class="muted">GoRouter, Deeplink/App Links</span></div>
+        <div class="skill"><b>Firebase</b><span class="muted">Auth, FCM, Crashlytics</span></div>
+        <div class="skill"><b>UI/UX</b><span class="muted">Figma, дизайн‑системы, token‑theme, l10n</span></div>
+        <div class="skill"><b>DevOps</b><span class="muted">GitFlow, Fastlane, GitHub Actions</span></div>
+        <div class="skill"><b>Инструменты</b><span class="muted">Xcode, Android Studio, VS Code, Postman, Jira</span></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Реализованные проекты</h2>
+      <div class="projects">
+        <article class="project">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop" alt="SindBadCity - Маркетплейс приложение"/>
+          </div>
+          <h3>SindBadCity (маркетплейс)</h3>
+          <p>Полнофункциональный B2B/B2C маркетплейс с системой чатов, push-уведомлениями, deeplink-навигацией и автоматическими релизами в App Store и Google Play.</p>
+          <div class="chips">
+            <a class="link" href="https://apps.apple.com/ru/app/sindbadcity/id6444826905" target="_blank"> App Store</a>
+            <a class="link" href="https://play.google.com/store/apps/details?id=com.sindbadcity" target="_blank">▶︎ Google Play</a>
+          </div>
+          <a href="#sindbad-details" class="details-btn">Подробнее</a>
+        </article>
+        <article class="project">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?q=80&w=1200&auto=format&fit=crop" alt="ЛюблюЕду - Ресторанная экосистема"/>
+          </div>
+          <h3>ЛюблюЕду (экосистема)</h3>
+          <p>Комплексная экосистема для ресторанов: CRM система, мобильные приложения клиентов, программа лояльности, онлайн-оплата и интеграция с iiko.</p>
+          <div class="chips">
+            <a class="link" href="https://play.google.com/store/apps/details?id=ru.dolinger.lovefood" target="_blank">Google Play</a>
+            <a class="link" href="https://apps.apple.com/ru/app/%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E%D0%B5%D0%B4%D1%83/id1562836735" target="_blank">App Store</a>
+          </div>
+          <a href="#lovefood-details" class="details-btn">Подробнее</a>
+        </article>
+        <article class="project">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=1200&auto=format&fit=crop" alt="K-Profi 2.0 - Сканер чеков"/>
+          </div>
+          <h3>K‑Profi 2.0</h3>
+          <p>Приложение для сканирования чеков с системой бонусов, каталогом товаров и функционалом корзины для накопления скидок.</p>
+          <div class="chips">
+            <a class="link" href="https://apps.apple.com/ru/app/k-profi-2-0/id1637130637" target="_blank"> App Store</a>
+          </div>
+          <a href="#kprofi-details" class="details-btn">Подробнее</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Контакты</h2>
+      <div class="contact-card">
+        <div class="contact-item" onclick="window.open('https://t.me/yakubiam', '_blank')">
+          <div class="contact-icon">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 3L2 11l6.5 2.5L17 7l-6.5 8.5V21l3.5-3.5L19 20l3-17z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-weight:600; margin-bottom:2px">Telegram</div>
+            <div class="muted">@yakubiam</div>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-weight:600; margin-bottom:4px">Телефон</div>
+            <div class="phone-numbers">
+              <a class="phone-link" href="tel:+79961255676">+7 996 125‑56‑76</a>
+              <a class="phone-link" href="tel:+992010693636">+992 010 693‑636</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-item" onclick="window.open('https://www.behance.net/yakubiam', '_blank')">
+          <div class="contact-icon">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-weight:600; margin-bottom:2px">Портфолио</div>
+            <div class="muted">Behance</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="download-section">
+      <a href="assets/Resume flutter.pdf" download="Abduqahhor_Yakubi_Resume.pdf" class="download-btn">
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>Скачать резюме (PDF)</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <span>© <span id="y"></span> Abduqahhor Yakubi</span>
+    </div>
+  </footer>
+
+  <script>
+    // Год в футере
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Плавный скролл
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    // Перелив неонового свечения в hero
+    const glow = document.querySelector('.glow');
+    document.addEventListener('pointermove', (e)=>{
+      const r = document.body.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width * 100;
+      const y = (e.clientY - r.top) / r.height * 100;
+      glow.style.setProperty('--mx', x+'%');
+      glow.style.setProperty('--my', y+'%');
+    });
+
+    // Переключение темы (тёмная/ещё темнее)
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const dark = {bg:'#0b0e12', panel:'#0f141b'};
+    const darker = {bg:'#07090c', panel:'#0b0f15'};
+    let mode=0;
+    btn.addEventListener('click',()=>{
+      mode = 1 - mode;
+      root.style.setProperty('--bg', mode?darker.bg:dark.bg);
+      root.style.setProperty('--panel', mode?darker.panel:dark.panel);
+      btn.textContent = mode? '☾' : '⚡︎';
+      document.body.style.background = mode
+        ? 'radial-gradient(1200px 800px at 80% -10%, rgba(138,43,226,.14), transparent 60%), radial-gradient(900px 700px at -10% 10%, rgba(0,229,255,.10), transparent 55%), linear-gradient(180deg, #07090c 0%, #06080a 100%)'
+        : '';
+    });
+  </script>
+</body>
+</html>
