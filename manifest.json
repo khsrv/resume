@@ -1,0 +1,29 @@
+{
+  "name": "Abduqahhor Yakubi — Flutter Developer Portfolio",
+  "short_name": "Yakubi Portfolio",
+  "description": "Middle Flutter Developer с 3+ годами опыта. Портфолио проектов и резюме.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e12",
+  "theme_color": "#0b0e12",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/image.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "mobile"],
+  "lang": "ru",
+  "dir": "ltr",
+  "scope": "/"
+}
+

@@ -3,12 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Abduqahhor Yakubi — Flutter Developer</title>
-  <meta name="description" content="Hi‑tech резюме‑лендинг Middle Flutter Developer: проекты, опыт, навыки, контакты." />
+  
+  <!-- Primary Meta Tags -->
+  <title>Abduqahhor Yakubi — Middle Flutter Developer | Портфолио</title>
+  <meta name="title" content="Abduqahhor Yakubi — Middle Flutter Developer | Портфолио" />
+  <meta name="description" content="Middle Flutter Developer с 3+ годами опыта. Специализируюсь на Clean Architecture, BLoC, Firebase. Портфолио проектов: SindBadCity, ЛюблюЕду, Qoffer и другие." />
+  <meta name="keywords" content="Flutter Developer, Mobile Developer, Разработчик Flutter, iOS разработчик, Android разработчик, Clean Architecture, BLoC, Firebase, Казань" />
+  <meta name="author" content="Abduqahhor Yakubi" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://yakubiam.dev/" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yakubiam.dev/" />
+  <meta property="og:title" content="Abduqahhor Yakubi — Middle Flutter Developer" />
+  <meta property="og:description" content="Middle Flutter Developer с 3+ годами опыта. Специализируюсь на Clean Architecture, BLoC, Firebase." />
+  <meta property="og:image" content="https://yakubiam.dev/assets/image.png" />
+  <meta property="og:locale" content="ru_RU" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://yakubiam.dev/" />
+  <meta property="twitter:title" content="Abduqahhor Yakubi — Middle Flutter Developer" />
+  <meta property="twitter:description" content="Middle Flutter Developer с 3+ годами опыта. Специализируюсь на Clean Architecture, BLoC, Firebase." />
+  <meta property="twitter:image" content="https://yakubiam.dev/assets/image.png" />
+  
+  <!-- PWA -->
   <meta name="theme-color" content="#0b0e12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Abduqahhor Yakubi" />
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Fonts with preload for optimization -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="assets/image.png" as="image" type="image/png" />
   <style>
     :root{
       --bg:#0b0e12;          /* глубокий графит */
@@ -69,7 +103,7 @@
       background:linear-gradient(180deg, rgba(106,108,255,.18), rgba(0,229,255,.14));
       display:flex; align-items:center; justify-content:center
     }
-    .photo img{width:100%; height:100%; object-fit:cover; mix-blend:lighten; filter:saturate(105%)}
+    .photo img{width:100%; height:100%; object-fit:cover; mix-blend-mode:lighten; filter:saturate(105%)}
     .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
     .chip{padding:8px 10px; border:1px solid var(--line); border-radius:999px; color:#c7d2e0; background:rgba(255,255,255,.03); font-size:12px}
 
@@ -440,7 +474,7 @@
     .modal-title{
       font-size:28px; font-weight:700; margin:0 0 8px;
       background:linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
     .modal-subtitle{
       color:var(--muted); font-size:16px; margin:0;
@@ -578,6 +612,38 @@
       border:0;
     }
   </style>
+  
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Abduqahhor Yakubi",
+    "jobTitle": "Middle Flutter Developer",
+    "url": "https://yakubiam.dev",
+    "sameAs": [
+      "https://t.me/yakubiam",
+      "https://www.behance.net/yakubiam"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Казань",
+      "addressCountry": "RU"
+    },
+    "knowsAbout": [
+      "Flutter",
+      "Dart",
+      "Clean Architecture",
+      "BLoC",
+      "Firebase",
+      "iOS Development",
+      "Android Development",
+      "Mobile Development"
+    ],
+    "image": "https://yakubiam.dev/assets/image.png",
+    "description": "Middle Flutter Developer с 3+ годами коммерческого опыта. Специализируюсь на Clean Architecture, BLoC, Firebase, и создании качественных мобильных приложений."
+  }
+  </script>
 </head>
 <body>
   <header>
@@ -697,7 +763,7 @@
       <div class="projects" id="projects-container">
         <article class="project">
           <div class="thumb">
-            <img src="assets/sindbadcity.png" alt="SindBadCity - Маркетплейс приложение"/>
+            <img src="assets/sindbadcity.png" alt="SindBadCity - Маркетплейс приложение" loading="lazy"/>
           </div>
           <h3>SindBadCity (маркетплейс)</h3>
           <p>Полнофункциональный B2B/B2C маркетплейс с системой чатов, push-уведомлениями, deeplink-навигацией и автоматическими релизами в App Store и Google Play.</p>
@@ -709,7 +775,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="assets/lovefood.png" alt="ЛюблюЕду - Ресторанная экосистема"/>
+            <img src="assets/lovefood.png" alt="ЛюблюЕду - Ресторанная экосистема" loading="lazy"/>
           </div>
           <h3>ЛюблюЕду (экосистема)</h3>
           <p>Комплексная экосистема для ресторанов: CRM система, мобильные приложения клиентов, программа лояльности, онлайн-оплата и интеграция с iiko.</p>
@@ -721,7 +787,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="assets/fresh.png" alt="Fresh Гастробар - Приложение для доставки"/>
+            <img src="assets/fresh.png" alt="Fresh Гастробар - Приложение для доставки" loading="lazy"/>
           </div>
           <h3>Fresh Гастробар</h3>
           <p>Мобильное приложение для Fresh Гастробара с программой лояльности, онлайн-заказами, отслеживанием доставки и системой бонусов.</p>
@@ -732,7 +798,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="assets/knauf.png" alt="K-Profi 2.0 - Сканер чеков"/>
+            <img src="assets/knauf.png" alt="K-Profi 2.0 - Сканер чеков" loading="lazy"/>
           </div>
           <h3>K‑Profi 2.0</h3>
           <p>Приложение для сканирования чеков с системой бонусов, каталогом товаров и функционалом корзины для накопления скидок.</p>
@@ -743,7 +809,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="assets/sadykova.png" alt="Dr.Sadykova - Мобильное приложение"/>
+            <img src="assets/sadykova.png" alt="Dr.Sadykova - Мобильное приложение" loading="lazy"/>
           </div>
           <h3>Dr.Sadykova</h3>
           <p>Приложение для бренда космецевтики с каталогом продукции и онлайн-консультациями. Доступен APK для тестирования.</p>
@@ -755,7 +821,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="assets/kaimobile.png" alt="KaiMobile - Приложение для студентов"/>
+            <img src="assets/kaimobile.png" alt="KaiMobile - Приложение для студентов" loading="lazy"/>
           </div>
           <h3>KaiMobile</h3>
           <p>Мобильное приложение для студентов университета КНИТУ-КАИ. Проекты впоследствии не поддерживаются и недоступны в сторах. Доступен APK для тестирования.</p>
@@ -767,7 +833,7 @@
         </article>
         <article class="project">
           <div class="thumb">
-            <img src="assets/qoffer.png" alt="Qoffer - Платформа для поиска услуг"/>
+            <img src="assets/qoffer.png" alt="Qoffer - Платформа для поиска услуг" loading="lazy"/>
           </div>
           <h3>Qoffer</h3>
           <p>Эстонский стартап для поиска и бронирования услуг. Полностью реализован за 4 месяца, один из первых проектов. Впоследствии не поддерживается и недоступен в сторах.</p>
@@ -981,6 +1047,19 @@
         });
       }
     });
+    
+    // Регистрация Service Worker для кэширования и PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('ServiceWorker зарегистрирован:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('ServiceWorker регистрация не удалась:', error);
+          });
+      });
+    }
   </script>
 
   <!-- Modal Windows -->
@@ -1326,6 +1405,7 @@
             src="https://www.youtube.com/embed/4HkRvWY0Ka0" 
             title="Qoffer - Презентация проекта" 
             frameborder="0" 
+            loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowfullscreen>
           </iframe>
