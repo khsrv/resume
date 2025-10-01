@@ -728,12 +728,24 @@
             <img src="assets/sadykova.png" alt="Dr.Sadykova - Мобильное приложение"/>
           </div>
           <h3>Dr.Sadykova</h3>
-          <p>Мобильное приложение для бренда космецевтики Dr.Sadykova с каталогом продукции, программой лояльности и онлайн-консультациями. Проекты впоследствии не поддерживаются и недоступны в сторах. Но при необходимости можно скачать АПК и тестить с сайта.</p>
+          <p>Приложение для бренда космецевтики с каталогом продукции и онлайн-консультациями. Доступен APK для тестирования.</p>
           <div class="chips">
             <a class="link" href="https://drsadykova.pro/" target="_blank">🌐 Вебсайт</a>
             <a class="link" href="https://disk.yandex.tj/d/Sc9WgCksllIoUw" target="_blank">📱 APK для тестирования</a>
           </div>
           <a href="#sadykova-details" class="details-btn">Подробнее</a>
+        </article>
+        <article class="project">
+          <div class="thumb">
+            <img src="assets/kaimobile.png" alt="KaiMobile - Приложение для студентов"/>
+          </div>
+          <h3>KaiMobile</h3>
+          <p>Мобильное приложение для студентов университета КНИТУ-КАИ. Проекты впоследствии не поддерживаются и недоступны в сторах. Доступен APK для тестирования.</p>
+          <div class="chips">
+            <a class="link" href="https://t.me/kai_mobile" target="_blank">📱 Telegram канал</a>
+            <a class="link" href="https://disk.yandex.tj/d/eQtoAvU5OtWrZw" target="_blank">📱 APK для тестирования</a>
+          </div>
+          <a href="#kaimobile-details" class="details-btn">Подробнее</a>
         </article>
       </div>
     </section>
@@ -905,6 +917,11 @@
           btn.addEventListener('click', (e) => {
             e.preventDefault();
             openModal('sadykova-modal');
+          });
+        } else if (href === '#kaimobile-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('kaimobile-modal');
           });
         }
       });
@@ -1255,6 +1272,71 @@
             🌐 Вебсайт Dr.Sadykova
           </a>
           <a href="https://disk.yandex.tj/d/Sc9WgCksllIoUw" target="_blank" class="modal-link secondary">
+            📱 APK для тестирования
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="kaimobile-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('kaimobile-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">KaiMobile</h1>
+        <p class="modal-subtitle">Помощник студента • Android • 2023</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Мобильное приложение для студентов университета КНИТУ-КАИ. Приложение помогает студентам следить за расписанием занятий, зачетами и экзаменами, получать уведомления о важных событиях и быть в курсе новостей университета.</p>
+          <p><strong>Примечание:</strong> Проекты впоследствии не поддерживаются и недоступны в сторах. Но при необходимости можно скачать APK и тестить с сайта.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>Расписание занятий с возможностью фильтрации</li>
+            <li>Балльный рейтинг студента</li>
+            <li>Расписание зачетов и экзаменов</li>
+            <li>Новости и уведомления университета</li>
+            <li>Список студенческих активностей</li>
+            <li>Персональный профиль студента</li>
+            <li>Offline-режим для работы без интернета</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">BLoC</span>
+            <span class="tech-tag">GetIt</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">Hive</span>
+            <span class="tech-tag">Local Storage</span>
+            <span class="tech-tag">Push Notifications</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Разработал удобный интерфейс для студенческого приложения</li>
+            <li>Реализовал систему расписаний и уведомлений</li>
+            <li>Настроил offline-режим для работы без интернета</li>
+            <li>Интегрировал систему балльного рейтинга</li>
+            <li>Обеспечил стабильную работу приложения</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://t.me/kai_mobile" target="_blank" class="modal-link">
+            📱 Telegram канал
+          </a>
+          <a href="https://disk.yandex.tj/d/eQtoAvU5OtWrZw" target="_blank" class="modal-link secondary">
             📱 APK для тестирования
           </a>
         </div>
