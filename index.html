@@ -559,6 +559,24 @@
       color:var(--accent-1);
     }
     .exp-link.web::before{content:'🌐';}
+    
+    /* YouTube Video Embed Styles */
+    .video-container{
+      position:relative;
+      width:100%;
+      padding-bottom:56.25%; /* 16:9 Aspect Ratio */
+      margin-bottom:24px;
+      border-radius:16px;
+      overflow:hidden;
+      background:var(--soft);
+      border:1px solid var(--line);
+    }
+    .video-container iframe{
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      border:0;
+    }
   </style>
 </head>
 <body>
@@ -747,6 +765,17 @@
           </div>
           <a href="#kaimobile-details" class="details-btn">Подробнее</a>
         </article>
+        <article class="project">
+          <div class="thumb">
+            <img src="assets/qoffer.png" alt="Qoffer - Платформа для поиска услуг"/>
+          </div>
+          <h3>Qoffer</h3>
+          <p>Эстонский стартап для поиска и бронирования услуг. Полностью реализован за 4 месяца, один из первых проектов. Впоследствии не поддерживается и недоступен в сторах.</p>
+          <div class="chips">
+            <a class="link" href="https://www.youtube.com/watch?v=4HkRvWY0Ka0" target="_blank">▶︎ Видео презентация</a>
+          </div>
+          <a href="#qoffer-details" class="details-btn">Подробнее</a>
+        </article>
       </div>
     </section>
 
@@ -922,6 +951,11 @@
           btn.addEventListener('click', (e) => {
             e.preventDefault();
             openModal('kaimobile-modal');
+          });
+        } else if (href === '#qoffer-details') {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('qoffer-modal');
           });
         }
       });
@@ -1273,6 +1307,83 @@
           </a>
           <a href="https://disk.yandex.tj/d/Sc9WgCksllIoUw" target="_blank" class="modal-link secondary">
             📱 APK для тестирования
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="qoffer-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('qoffer-modal')">×</button>
+      <div class="modal-header">
+        <h1 class="modal-title">Qoffer</h1>
+        <p class="modal-subtitle">Платформа для поиска услуг • iOS/Android • 2021-2022</p>
+      </div>
+      <div class="modal-body">
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/4HkRvWY0Ka0" 
+            title="Qoffer - Презентация проекта" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Описание проекта</h3>
+          <p>Эстонский стартап для поиска и бронирования различных услуг. Проект был полностью реализован командой за 4 месяца и стал одним из первых коммерческих проектов. Платформа объединяла поставщиков услуг и клиентов, предоставляя удобный интерфейс для поиска, сравнения и бронирования.</p>
+          <p><strong>Примечание:</strong> Проект впоследствии не поддерживается и недоступен в сторах.</p>
+        </div>
+        
+        <div class="modal-section">
+          <h3>Ключевые функции</h3>
+          <ul class="achievements">
+            <li>Поиск услуг по категориям и геолокации</li>
+            <li>Система бронирования с календарем</li>
+            <li>Профили поставщиков услуг с рейтингами</li>
+            <li>Отзывы и оценки клиентов</li>
+            <li>Онлайн-оплата и управление бронированиями</li>
+            <li>Push-уведомления о статусе бронирования</li>
+            <li>Чат между клиентами и поставщиками услуг</li>
+            <li>Мультиязычность (английский, русский, эстонский)</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3>Технологический стек</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">BLoC</span>
+            <span class="tech-tag">GetIt</span>
+            <span class="tech-tag">Dio</span>
+            <span class="tech-tag">Firebase Auth</span>
+            <span class="tech-tag">Firebase FCM</span>
+            <span class="tech-tag">Google Maps API</span>
+            <span class="tech-tag">Payment Gateway</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">l10n</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Мои достижения</h3>
+          <ul class="achievements">
+            <li>Полная реализация проекта за 4 месяца в команде</li>
+            <li>Разработал систему поиска и фильтрации услуг</li>
+            <li>Интегрировал систему бронирования и оплаты</li>
+            <li>Реализовал чат между пользователями в реальном времени</li>
+            <li>Настроил мультиязычность для международного рынка</li>
+            <li>Обеспечил стабильную работу на iOS и Android</li>
+          </ul>
+        </div>
+
+        <div class="modal-links">
+          <a href="https://www.youtube.com/watch?v=4HkRvWY0Ka0" target="_blank" class="modal-link">
+            ▶︎ Видео презентация
           </a>
         </div>
       </div>
